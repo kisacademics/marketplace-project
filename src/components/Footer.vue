@@ -1,7 +1,7 @@
 <template>
     <footer class="w-full bg-gray-800 px-4 sm:px-6 lg:px-8 xl:px-4 pt-8">
     <div class="max-w-6xl mx-auto text-white">
-      <div class="grid sm:grid-cols-2 py-4 gap-4">
+      <div class="grid sm:grid-cols-2 py-4 gap-4 text-left text-gray-400">
         <div class="space-y-4">
           <p class="font-semibold"><a href="#">Course Portal</a></p>
           <p class="font-semibold"><a href="#">Study Blog</a></p>
