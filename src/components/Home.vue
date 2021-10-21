@@ -650,10 +650,11 @@ export default {
           this.updateFilter(this.filterData);
           break;
         case "availabilityForPrivateTutoring":
-          console.log(value);
-          this.filterData.availabilityForPrivateTutoring = {
-            equals: value,
-          };
+          value === ""
+            ? (this.filterData.availabilityForPrivateTutoring = {})
+            : (this.filterData.availabilityForPrivateTutoring = {
+                equals: value,
+              });
           this.updateFilter(this.filterData);
           break;
         case "km":
