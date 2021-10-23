@@ -1,6 +1,8 @@
 <template>
   <div :class="width">
-    <label class="block text-sm font-medium text-gray-700 text-left">
+    <label
+      class="block font-medium text-gray-700 text-left text-sm sm:text-base"
+    >
       {{ label }}
     </label>
     <button
@@ -20,14 +22,17 @@
         focus:ring-1
         focus:ring-blue-800
         focus:border-blue-800
-        sm:text-sm
         flex
         justify-between
+        items-center
+        space-x-2
       "
       @click="toggleDropdown"
       @blur="testBlur"
     >
-      <span class="block truncate">{{ selectedOption || initial }}</span>
+      <span class="block truncate text-sm sm:text-base">{{
+        selectedOption || initial
+      }}</span>
       <span>
         <!-- Heroicon name: solid/selector -->
         <svg
@@ -45,11 +50,10 @@
         </svg>
       </span>
     </button>
-
     <ul
       ref="dropdown"
       :hidden="!dropdownOpen"
-      :class="width"
+      :style="{ width: buttonWidth + 'px' }"
       class="
         absolute
         z-10
@@ -59,7 +63,6 @@
         max-h-60
         rounded-md
         py-1
-        text-base
         ring-1 ring-black ring-opacity-5
         overflow-auto
         focus:outline-none
@@ -87,7 +90,9 @@
         role="option"
         @click="selectOption(option)"
       >
-        <span class="font-normal block truncate">{{ option }}</span>
+        <span class="font-normal block truncate text-sm sm:text-base">{{
+          option
+        }}</span>
         <span
           v-if="option === selectedOption"
           class="text-blue-800 flex items-center group-hover:text-white"
@@ -123,13 +128,20 @@ export default {
     this.$refs["dropdown"].addEventListener("mouseleave", () => {
       this.mouseOverOptions = false;
     });
+    window.addEventListener("resize", () => {
+      if (!this.$refs["button"]) return;
+      this.buttonWidth = this.$refs["button"].offsetWidth;
+      console.log(this.buttonWidth);
+    });
     this.selectedOption = this.initial;
+    this.buttonWidth = this.$refs["button"].offsetWidth;
   },
   data() {
     return {
       dropdownOpen: false,
       selectedOption: null,
       mouseOverOptions: false,
+      buttonWidth: null,
     };
   },
   methods: {
