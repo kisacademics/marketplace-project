@@ -133,13 +133,15 @@
           text-white
           font-semibold
           flex
-          lg:justify-between
+          md:justify-between
           flex-col
-          lg:flex-row
+          md:flex-row
           justify-center
           mx-auto
-          w-72
-          lg:w-full
+          w-64
+          md:w-full
+          xl:text-base
+          text-sm
         "
       >
         <div
@@ -149,7 +151,7 @@
             'Working with children\'s checks',
           ]"
           :key="message"
-          class="flex lg:mb-0 mb-4"
+          class="flex lg:mb-0 mb-4 items-center"
         >
           <div
             class="
