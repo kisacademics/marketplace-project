@@ -65,6 +65,63 @@
         </div>
       </div>
     </section>
+    <div class="ml-5 mt-5">
+      <Dropdown
+        label="Subject"
+        :options="
+          subjectData ? subjectData.map((subject) => subject.subject) : []
+        "
+        initial="All Subjects"
+        width="w-96"
+        emitType="subject"
+        @option-changed="updateData"
+      />
+
+      <Dropdown
+        label="State"
+        :options="stateData"
+        initial="All States"
+        width="w-44"
+        emitType="state"
+        @option-changed="updateData"
+      />
+
+      <Dropdown
+        label="Area of Study"
+        :options="areasOfStudy"
+        initial="All areas of study"
+        width="w-96"
+        emitType="areaOfStudy"
+        @option-changed="updateData"
+      />
+
+      <Dropdown
+        label="Availability"
+        :options="['Available', 'Not Available']"
+        initial="All Availabilities"
+        emitType="availabilityForPrivateTutoring"
+        width="w-44"
+        @option-changed="updateData"
+      />
+
+      <Dropdown
+        label="Pricing Tier"
+        :options="pricingTiers"
+        initial="All Pricing Tiers"
+        emitType="publicPrivateTutoringTier"
+        width="w-44"
+        @option-changed="updateData"
+      />
+
+      <Dropdown
+        label="Gender"
+        :options="['Male', 'Female']"
+        initial="Everyone"
+        emitType="gender"
+        width="w-44"
+        @option-changed="updateData"
+      />
+    </div>
 
     <section class="filter-sec pt-12 pb-10 px-4 sm:px-6 lg:px-8 xl:px-4">
       <div class="max-w-6xl w-full filter-div mx-auto">
@@ -153,7 +210,6 @@
             class="
               w-36
               relative
-              z-10
               block
               rounded-md
               bg-white
@@ -559,7 +615,12 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
+import Dropdown from "./Dropdown.vue";
+
 export default {
+  components: {
+    Dropdown,
+  },
   // Called before mounted
   // Earliest lifecycle hook for data fetching
   async created() {
@@ -619,7 +680,7 @@ export default {
     updateData: async function (key, value) {
       switch (key) {
         case "state":
-          value === ""
+          value === "" || value === "All States"
             ? (this.filterData.state = {})
             : (this.filterData.state = { equals: value });
           this.updateFilter(this.filterData);
@@ -627,7 +688,11 @@ export default {
         case "subject":
           value === ""
             ? (this.filterData.subjects = {})
-            : (this.filterData.subjects = { includes: value });
+            : (this.filterData.subjects = {
+                includes: this.subjectData.find(
+                  (subject) => subject.subject === value
+                ).id,
+              });
           this.updateFilter(this.filterData);
           break;
         case "areaOfStudy":
