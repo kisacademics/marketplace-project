@@ -1,407 +1,181 @@
 <template>
   <main class="mx-auto max-w-full main-content">
-    <div class="ml-5 mt-5">
+    <div
+      class="
+        md:max-w-6xl md:w-3/4
+        w-11/12
+        mx-auto
+        flex
+        justify-between
+        pt-5
+        space-x-0
+        lg:space-x-5 lg:flex-row
+        flex-col
+      "
+    >
       <Dropdown
         label="Subject"
         :options="
           subjectData ? subjectData.map((subject) => subject.subject) : []
         "
         initial="All Subjects"
-        width="w-96"
+        width="lg:w-1/2 w-full"
         emitType="subject"
         @option-changed="updateData"
       />
-
-      <Dropdown
-        label="State"
-        :options="stateData"
-        initial="All States"
-        width="w-44"
-        emitType="state"
-        @option-changed="updateData"
-      />
-
-      <Dropdown
-        label="Area of Study"
-        :options="areasOfStudy"
-        initial="All areas of study"
-        width="w-96"
-        emitType="areaOfStudy"
-        @option-changed="updateData"
-      />
-
-      <Dropdown
-        label="Availability"
-        :options="['Available', 'Not Available']"
-        initial="All Availabilities"
-        emitType="availabilityForPrivateTutoring"
-        width="w-44"
-        @option-changed="updateData"
-      />
-
-      <Dropdown
-        label="Pricing Tier"
-        :options="pricingTiers"
-        initial="All Pricing Tiers"
-        emitType="publicPrivateTutoringTier"
-        width="w-44"
-        @option-changed="updateData"
-      />
-
-      <Dropdown
-        label="Gender"
-        :options="['Male', 'Female']"
-        initial="Everyone"
-        emitType="gender"
-        width="w-44"
-        @option-changed="updateData"
-      />
+      <div class="flex space-x-5 lg:w-1/2 w-full mt-5 lg:mt-0">
+        <Dropdown
+          label="Availability"
+          :options="['Available', 'Not Available']"
+          initial="All Availabilities"
+          emitType="availabilityForPrivateTutoring"
+          width="w-1/2"
+          @option-changed="updateData"
+        />
+        <Dropdown
+          label="State"
+          :options="stateData"
+          initial="All States"
+          width="w-1/2"
+          emitType="state"
+          @option-changed="updateData"
+        />
+      </div>
     </div>
+    <div
+      class="
+        text-left
+        md:max-w-6xl md:w-3/4
+        w-11/12
+        mx-auto
+        mt-5
+        flex
+        items-center
+        space-x-2
+      "
+    >
+      <span class="text-sm sm:text-base">{{
+        dropdownOpen ? "Less Filters" : "More Filters"
+      }}</span>
+      <button
+        class="border border-gray-300 rounded-full p-2"
+        @click="dropdownOpen = !dropdownOpen"
+      >
+        <img
+          class="w-2 sm:w-3"
+          :class="dropdownOpen ? 'rotate90' : 'rotate270'"
+          src="../assets/img/arrow.svg"
+        />
+      </button>
+    </div>
+    <div v-if="dropdownOpen" class="md:max-w-6xl md:w-3/4 w-11/12 mx-auto">
+      <div
+        v-if="dropdownOpen"
+        class="
+          w-full
+          mx-auto
+          flex
+          justify-between
+          pt-5
+          space-x-0
+          lg:space-x-5 lg:flex-row
+          flex-col
+        "
+      >
+        <Dropdown
+          label="Tutor's Area of Study"
+          :options="areasOfStudy"
+          initial="All areas of study"
+          width="lg:w-1/2 w-full"
+          emitType="areaOfStudy"
+          @option-changed="updateData"
+        />
+        <div class="flex space-x-5 lg:w-1/2 w-full mt-5 lg:mt-0">
+          <Dropdown
+            label="Pricing Tier"
+            :options="pricingTiers"
+            initial="All Pricing Tiers"
+            emitType="publicPrivateTutoringTier"
+            width="w-full"
+            @option-changed="updateData"
+          />
 
-    <section class="filter-sec pt-12 pb-10 px-4 sm:px-6 lg:px-8 xl:px-4">
-      <div class="max-w-6xl w-full filter-div mx-auto">
-        <!-- <form > -->
-        <div class="sm:rounded-md">
-          <div class="bg-white">
-            <div class="grid grid-cols-4 gap-4">
-              <div class="col-span-4 sm:col-span-2">
-                <select
-                  class="
-                    px-4
-                    py-2
-                    rounded-lg
-                    border
-                    w-full
-                    border-gray-300
-                    focus:outline-none
-                    bg-white
-                    h-10
-                  "
-                  @change="updateData('subject', $event.target.value)"
-                >
-                  <option value="">Select Subject</option>
-                  <option
-                    v-for="item in subjectData"
-                    :key="item"
-                    :value="item.id"
-                  >
-                    {{ item.subject }}
-                  </option>
-                </select>
-                <!-- <input placeholder="Subject" type="text" name="subject" id="subject" autocomplete="given-name" class="px-4 py-2 rounded-lg border w-full border-gray-300 focus:outline-none"> -->
-              </div>
-              <div class="col-span-2 sm:col-span-1">
-                <select
-                  class="
-                    px-4
-                    py-2
-                    rounded-lg
-                    border
-                    w-full
-                    border-gray-300
-                    focus:outline-none
-                    bg-white
-                    h-10
-                  "
-                  @change="updateData('state', $event.target.value)"
-                >
-                  <option value="">Select State</option>
-                  <option v-for="item in stateData" :key="item">
-                    {{ item }}
-                  </option>
-                </select>
-                <!-- <input placeholder="State" type="text" class="px-4 py-2 w-full rounded-lg border border-gray-300 focus:outline-none" @change="updateData('state',$event.target.value)"> -->
-              </div>
-              <div class="col-span-2 sm:col-span-1">
-                <button
-                  class="
-                    inline-flex
-                    justify-center
-                    w-full
-                    py-2
-                    px-4
-                    border
-                    shadow-sm
-                    rounded-md
-                    text-white
-                    bg-accent
-                    focus:outline-none
-                  "
-                  @click="submitFilter()"
-                >
-                  Let's Go
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- </form> -->
-
-        <!-- This example requires Tailwind CSS v2.0+ -->
-        <div class="more_filters relative inline-block text-left w-full mt-4">
-          <button
-            v-show="!dropdownOpen"
-            @click="dropdownOpen = !dropdownOpen"
-            class="
-              w-36
-              relative
-              block
-              rounded-md
-              bg-white
-              p-2
-              pr-4
-              focus:outline-none
-              border border-gray-300
-              shadow-sm
-              mb-4
-            "
-          >
-            <svg
-              class="h-5 w-5 text-gray-800 inline"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            More Filters
-          </button>
-          <button
-            v-show="dropdownOpen"
-            @click="dropdownOpen = !dropdownOpen"
-            class="
-              w-36
-              relative
-              z-10
-              block
-              bg-white
-              p-2
-              pr-4
-              focus:outline-none
-              rounded-md
-              border border-gray-300
-              shadow-sm
-              mb-4
-            "
-          >
-            <svg
-              class="h-5 w-5 transform rotate-180 text-gray-800 inline"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            Less Filters
-          </button>
-
-          <div
-            v-show="dropdownOpen"
-            class="
-              origin-top-right
-              mf-box
-              flex
-              gap-4
-              sm:gap-12
-              md:gap-20
-              right-0
-              mt-2
-              w-full
-              bg-white
-              focus:outline-none
-            "
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="menu-button"
-            tabindex="-1"
-            style="display: none"
-          >
-            <div class="w-1/2">
-              <p class="w-full mb-4 filterr flt2 max-w-xs">
-                <select
-                  class="
-                    px-4
-                    py-2
-                    rounded-lg
-                    border
-                    w-full
-                    border-gray-300
-                    focus:outline-none
-                    bg-white
-                    h-10
-                  "
-                  @change="updateData('areaOfStudy', $event.target.value)"
-                >
-                  <option value="">Select University Area of Study</option>
-                  <option value="">All Areas of Study</option>
-                  <option v-for="aos in areasOfStudy" :key="aos" :value="aos">
-                    {{ aos }}
-                  </option>
-                </select>
-              </p>
-              <p class="w-full mb-4 filterr flt2 max-w-xs">
-                <select
-                  class="
-                    px-4
-                    py-2
-                    rounded-lg
-                    border
-                    w-full
-                    border-gray-300
-                    focus:outline-none
-                    bg-white
-                    h-10
-                  "
-                  @change="
-                    updateData(
-                      'availabilityForPrivateTutoring',
-                      $event.target.value
-                    )
-                  "
-                >
-                  <option value="">All Tutors</option>
-                  <option value="Available">Available</option>
-                  <option value="Not Available">Not Available</option>
-                </select>
-              </p>
-              <p class="w-full mb-0 filterr flt3 max-w-xs mt-4">
-                <select
-                  class="
-                    px-4
-                    py-2
-                    rounded-lg
-                    border
-                    w-full
-                    border-gray-300
-                    focus:outline-none
-                    bg-white
-                    h-10
-                  "
-                  @change="
-                    updateData('publicPrivateTutoringTier', $event.target.value)
-                  "
-                >
-                  <option value="">Select Pricing Tier</option>
-                  <option value="">All Pricing Tiers</option>
-                  <option
-                    v-for="tier of pricingTiers"
-                    :key="tier"
-                    :value="tier"
-                  >
-                    {{ tier }}
-                  </option>
-                </select>
-              </p>
-              <!-- <p class="w-full mb-0 filterr flt3 max-w-xs">
-                <input
-                  type="text"
-                  class="
-                    px-4
-                    py-2
-                    rounded-lg
-                    border
-                    w-full
-                    border-gray-300
-                    focus:outline-none
-                  "
-                  placeholder="Pricing"
-                  @change="
-                    updateData('publicPrivateTutoringTier', $event.target.value)
-                  "
-                />
-              </p> -->
-              <p class="w-full mb-0 filterr flt3 max-w-xs mt-4">
-                <select
-                  class="
-                    px-4
-                    py-2
-                    rounded-lg
-                    border
-                    w-full
-                    border-gray-300
-                    focus:outline-none
-                    bg-white
-                    h-10
-                  "
-                  @change="updateData('gender', $event.target.value)"
-                >
-                  <option value="">Select Gender</option>
-                  <option value="">Everyone</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                </select>
-                <!-- <input placeholder="Subject" type="text" name="subject" id="subject" autocomplete="given-name" class="px-4 py-2 rounded-lg border w-full border-gray-300 focus:outline-none"> -->
-              </p>
-            </div>
-            <div class="w-1/2 right-range border-none">
-              <div class="w-full mb-8 sm:mb-12 filterr flt4 max-w-xs">
-                <label>For In-Person Tutoring:</label>
-                <input
-                  type="text"
-                  class="
-                    px-4
-                    py-2
-                    mt-4
-                    rounded-lg
-                    border
-                    w-full
-                    border-gray-300
-                    focus:outline-none
-                  "
-                  placeholder="Postcode"
-                  @change="updateData('of', $event.target.value)"
-                />
-                <p class="ml-4 text-sm text-red-700">
-                  {{ showPostcodeError ? "Postcode must four numbers" : " " }}
-                </p>
-              </div>
-
-              <div class="w-full mb-0 filterr flt5 max-w-xs">
-                <div class="w-auto rangefilter">
-                  <div
-                    x-data="{total_value:50}"
-                    class="relative max-w-screen-xl mx-auto range-txt"
-                  >
-                    <input
-                      class="w-full py-2"
-                      type="range"
-                      x-model="total_value"
-                      min="5"
-                      max="15"
-                      step="5"
-                      @change="updateData('km', $event.target.value)"
-                    />
-                    <span
-                      class="
-                        range-text
-                        top-6
-                        text-xs
-                        absolute
-                        w-full
-                        flex
-                        justify-between
-                      "
-                    >
-                      <span>5Km</span>
-                      <span>10Km</span>
-                      <span>15Km</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Dropdown
+            label="Gender"
+            :options="['Male', 'Female']"
+            initial="Everyone"
+            emitType="gender"
+            width="w-full"
+            @option-changed="updateData"
+          />
         </div>
       </div>
-    </section>
+      <div class="mt-5 flex flex-row space-x-5 lg:w-1/2 mx-auto w-full">
+        <div class="flex flex-col w-1/2">
+          <label class="text-left text-sm sm:text-base">Postcode</label>
+          <input
+            type="text"
+            class="
+              max-h-60
+              bg-white
+              w-full
+              border border-gray-300
+              rounded-md
+              shadow-sm
+              px-3
+              py-2
+              text-left
+              cursor-pointer
+              focus:outline-none
+              focus:ring-1
+              focus:ring-blue-800
+              focus:border-blue-800
+              flex
+              justify-between
+              items-center
+              space-x-3
+              text-sm
+              sm:text-base
+            "
+            @change="updateData('of', $event.target.value)"
+          />
+        </div>
+        <div class="flex flex-col w-1/2">
+          <label class="text-left text-sm sm:text-base">Distance</label>
+          <input
+            class="w-full py-2 cursor-pointer"
+            type="range"
+            x-model="total_value"
+            min="5"
+            max="15"
+            step="5"
+            @change="updateData('km', $event.target.value)"
+          />
+          <span class="range-text top-6 text-xs w-full flex justify-between">
+            <span>5Km</span>
+            <span>10Km</span>
+            <span>15Km</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md:max-w-6xl md:w-3/4 w-11/12 mx-auto text-center my-10">
+      <button
+        class="
+          py-2
+          px-8
+          rounded-md
+          text-white
+          bg-accent
+          focus:outline-none
+          font-semibold
+        "
+        @click="submitFilter()"
+      >
+        Find Tutors
+      </button>
+    </div>
+
     <section
       v-show="loading"
       class="
@@ -709,18 +483,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* h3 {
-  margin: 40px 0 0;
+.rotate90 {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.rotate270 {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-} */
 </style>
