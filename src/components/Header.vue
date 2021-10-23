@@ -93,7 +93,7 @@
     </div>
   </section> -->
   <section class="bg-default">
-    <div class="max-w-5xl w-3/4 mx-auto py-10 pb-12">
+    <div class="max-w-6xl w-3/4 mx-auto py-10 pb-12">
       <!-- section with logo and title -->
       <div
         class="
@@ -142,6 +142,7 @@
           md:w-full
           xl:text-base
           text-sm
+          space-y-5
         "
       >
         <div
@@ -151,7 +152,7 @@
             'Working with children\'s checks',
           ]"
           :key="message"
-          class="flex lg:mb-0 mb-4 items-center"
+          class="flex items-center"
         >
           <div
             class="
