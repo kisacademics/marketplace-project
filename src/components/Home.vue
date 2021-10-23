@@ -568,13 +568,8 @@ export default {
       paging: { first: 18, after: "" },
       filter: this.filterData,
     });
-    console.log(
-      this.subjectData,
-      "tutorData",
-      this.tutorData,
-      "filterdata",
-      this.filterData
-    );
+    this.filterData.location.within.km = 15;
+    this.updateFilter(this.filterData);
   },
   name: "Home",
   data: function () {
@@ -583,14 +578,6 @@ export default {
       dropdownOpen: false,
       pageno: 1,
       paging: { first: 18, after: "" },
-      state: null,
-      subject: null,
-      location: null,
-      gender: null,
-      atar: null,
-      availabilityForPrivateTutoring: null,
-      areaOfStudy: null,
-      publicPrivateTutoringTier: null,
       stateData: ["VIC", "QLD", "WA", "NSW"],
       areasOfStudy: [
         "Medicine",
@@ -699,7 +686,6 @@ export default {
     },
     submitFilter: async function () {
       if (!this.validPostcode()) {
-        console.log("invalid");
         this.showPostcodeError = true;
         return;
       }
@@ -707,7 +693,6 @@ export default {
     },
     validPostcode() {
       const postcode = this.filterData.location.within.of;
-      console.log(postcode, postcode.length === 4 || postcode.length === 0);
       return postcode.length === 4 || postcode.length === 0;
     },
   },
