@@ -58,7 +58,7 @@
         dropdownOpen ? "Less Filters" : "More Filters"
       }}</span>
       <button
-        class="border border-gray-300 rounded-full p-2"
+        class="border border-gray-300 rounded-full p-2 shadow-sm"
         @click="dropdownOpen = !dropdownOpen"
       >
         <img
