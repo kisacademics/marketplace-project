@@ -131,7 +131,6 @@ export default {
     window.addEventListener("resize", () => {
       if (!this.$refs["button"]) return;
       this.buttonWidth = this.$refs["button"].offsetWidth;
-      console.log(this.buttonWidth);
     });
     this.selectedOption = this.initial;
     this.buttonWidth = this.$refs["button"].offsetWidth;
