@@ -114,7 +114,7 @@
         <div class="flex flex-col w-1/2">
           <label class="text-left text-sm sm:text-base">Postcode</label>
           <input
-            type="text"
+            type="number"
             class="
               max-h-60
               bg-white
