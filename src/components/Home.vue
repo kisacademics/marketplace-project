@@ -165,7 +165,10 @@
         </div>
       </div>
     </div>
-    <div class="md:max-w-6xl md:w-3/4 w-11/12 mx-auto text-center my-10">
+    <div
+      class="md:max-w-6xl md:w-3/4 w-11/12 mx-auto text-center mb-10"
+      :class="dropdownOpen ? 'mt-10' : 'mt-0'"
+    >
       <button
         class="
           py-2
