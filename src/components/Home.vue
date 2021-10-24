@@ -139,6 +139,12 @@
             "
             @change="updateData('of', $event.target.value)"
           />
+          <div
+            class="text-xs sm:text-sm text-left text-red-500 font-medium"
+            v-if="showPostcodeError"
+          >
+            Postcode must be four numbers
+          </div>
         </div>
         <div class="flex flex-col w-1/2">
           <label class="text-left text-sm sm:text-base">Distance</label>
@@ -431,7 +437,6 @@ export default {
           this.updateFilter(this.filterData);
           break;
         case "of":
-          this.showPostcodeError = false;
           value === ""
             ? (this.filterData.location.within = {
                 km: this.filterData.location.within.km,
@@ -442,6 +447,7 @@ export default {
                 of: value,
               });
           this.updateFilter(this.filterData);
+          this.showPostcodeError = !this.validPostcode();
           break;
         case "publicPrivateTutoringTier":
           value === ""
@@ -467,6 +473,8 @@ export default {
     },
     validPostcode() {
       const postcode = this.filterData.location.within.of;
+      console.log("validating", postcode, postcode.length);
+
       return postcode.length === 4 || postcode.length === 0;
     },
   },
