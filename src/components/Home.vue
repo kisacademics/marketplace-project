@@ -23,15 +23,7 @@
         emitType="subject"
         @option-changed="updateData"
       />
-      <div class="flex space-x-5 lg:w-1/2 w-full mt-5 lg:mt-0">
-        <Dropdown
-          label="Availability"
-          :options="['Available', 'Not Available']"
-          initial="All Availabilities"
-          emitType="availabilityForPrivateTutoring"
-          width="w-1/2"
-          @option-changed="updateData"
-        />
+      <div class="flex space-x-5 lg:w-1/2 w-full mt-5 lg:mt-0 justify-between">
         <Dropdown
           label="State"
           :options="stateData"
@@ -40,23 +32,41 @@
           emitType="state"
           @option-changed="updateData"
         />
+        <div class="w-1/2 self-end">
+          <button
+            class="
+              text-sm
+              sm:text-base
+              py-2
+              w-full
+              border
+              rounded-md
+              shadow-sm
+              text-white
+              bg-accent
+              focus:outline-none
+              font-semibold
+            "
+            @click="submitFilter()"
+          >
+            Find Tutors
+          </button>
+        </div>
       </div>
     </div>
     <div
       class="
+        mt-5
         text-left
         md:max-w-6xl md:w-3/4
         w-11/12
         mx-auto
-        mt-5
         flex
         items-center
         space-x-2
+        mb-5
       "
     >
-      <span class="text-sm sm:text-base">{{
-        dropdownOpen ? "Less Filters" : "More Filters"
-      }}</span>
       <button
         class="border border-gray-300 rounded-full p-2 shadow-sm"
         @click="dropdownOpen = !dropdownOpen"
@@ -67,16 +77,17 @@
           src="../assets/img/arrow.svg"
         />
       </button>
+      <span class="text-sm sm:text-base">{{
+        dropdownOpen ? "Less Filters" : "More Filters"
+      }}</span>
     </div>
-    <div v-if="dropdownOpen" class="md:max-w-6xl md:w-3/4 w-11/12 mx-auto">
+    <div v-if="dropdownOpen" class="mb-5 md:max-w-6xl md:w-3/4 w-11/12 mx-auto">
       <div
-        v-if="dropdownOpen"
         class="
           w-full
           mx-auto
           flex
           justify-between
-          pt-5
           space-x-0
           lg:space-x-5 lg:flex-row
           flex-col
@@ -110,7 +121,83 @@
           />
         </div>
       </div>
-      <div class="mt-5 flex flex-row space-x-5 lg:w-1/2 mx-auto w-full">
+      <div
+        class="
+          w-full
+          mx-auto
+          flex
+          justify-between
+          pt-5
+          space-x-0
+          lg:space-x-5 lg:flex-row
+          flex-col
+        "
+      >
+        <Dropdown
+          label="Availability"
+          :options="['Available', 'Not Available']"
+          initial="All Availabilities"
+          emitType="availabilityForPrivateTutoring"
+          width="lg:w-1/2 w-full"
+          @option-changed="updateData"
+        />
+        <div class="flex space-x-5 lg:w-1/2 w-full mt-5 lg:mt-0">
+          <div class="flex flex-col w-1/2">
+            <label class="text-left text-sm sm:text-base">Postcode</label>
+            <input
+              type="number"
+              class="
+                max-h-60
+                bg-white
+                w-full
+                border border-gray-300
+                rounded-md
+                shadow-sm
+                px-3
+                py-2
+                text-left
+                cursor-pointer
+                focus:outline-none
+                focus:ring-1
+                focus:ring-blue-800
+                focus:border-blue-800
+                flex
+                justify-between
+                items-center
+                space-x-3
+                text-sm
+                sm:text-base
+              "
+              @change="updateData('of', $event.target.value)"
+            />
+            <div
+              class="text-xs sm:text-sm text-left text-red-500 font-medium"
+              v-if="showPostcodeError"
+            >
+              Postcode must be four numbers
+            </div>
+          </div>
+
+          <div class="flex flex-col w-1/2">
+            <label class="text-left text-sm sm:text-base">Distance</label>
+            <input
+              class="w-full py-2 cursor-pointer"
+              type="range"
+              x-model="total_value"
+              min="5"
+              max="15"
+              step="5"
+              @change="updateData('km', $event.target.value)"
+            />
+            <span class="range-text top-6 text-xs w-full flex justify-between">
+              <span>5Km</span>
+              <span>10Km</span>
+              <span>15Km</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="mt-5 flex flex-row space-x-5 lg:w-1/2 mx-auto w-full">
         <div class="flex flex-col w-1/2">
           <label class="text-left text-sm sm:text-base">Postcode</label>
           <input
@@ -163,26 +250,7 @@
             <span>15Km</span>
           </span>
         </div>
-      </div>
-    </div>
-    <div
-      class="md:max-w-6xl md:w-3/4 w-11/12 mx-auto text-center mb-10"
-      :class="dropdownOpen ? 'mt-10' : 'mt-0'"
-    >
-      <button
-        class="
-          py-2
-          px-8
-          rounded-md
-          text-white
-          bg-accent
-          focus:outline-none
-          font-semibold
-        "
-        @click="submitFilter()"
-      >
-        Find Tutors
-      </button>
+      </div> -->
     </div>
 
     <section
