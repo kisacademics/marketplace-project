@@ -30,7 +30,8 @@
           text-sm
           sm:text-base
         "
-        v-model="searchValue"
+        :value="searchValue"
+        @input="setInput"
         @click="toggleDropdown"
         @blur="testBlur"
       />
@@ -148,6 +149,9 @@ export default {
     };
   },
   methods: {
+    setInput(e) {
+      this.searchValue = e.target.value;
+    },
     setDropdownState(state) {
       this.dropdownOpen = state;
       if (state === false) this.$refs["input"].blur();
