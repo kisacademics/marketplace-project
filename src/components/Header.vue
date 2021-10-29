@@ -129,7 +129,7 @@
       <!-- Three ticks -->
       <div
         class="
-          mt-14
+          mt-12
           text-white
           font-semibold
           flex
@@ -143,6 +143,8 @@
           text-sm
           space-y-5
           w-max
+          items-baseline
+          h-min
         "
       >
         <div
@@ -152,7 +154,7 @@
             'Working with children\'s checks',
           ]"
           :key="message"
-          class="flex items-center"
+          class="flex items-center h-min"
         >
           <div
             class="
