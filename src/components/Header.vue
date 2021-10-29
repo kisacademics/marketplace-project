@@ -106,7 +106,7 @@
       >
         <div>
           <img
-            class="mx-auto logo-img w-min h-32 xl:h-40"
+            class="mx-auto logo-img w-auto h-32 xl:h-40"
             src="../assets/img/logo.png"
           />
         </div>
