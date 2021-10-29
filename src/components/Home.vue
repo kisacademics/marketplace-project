@@ -347,9 +347,17 @@
           <div class="text-center w-full">
             <p class="text-xl text-gray-700 font-bold">{{ item.name }}</p>
             <p class="flex justify-between w-full my-5 items-center">
-              <a class="bg-gray-400 rounded-3xl px-3 text-sm py-1" href="">{{
-                item.publicPrivateTutoringTier
-              }}</a>
+              <a
+                class="rounded-3xl px-3 text-sm py-1"
+                href=""
+                :class="
+                  tierColours[item.publicPrivateTutoringTier] &&
+                  `${tierColours[item.publicPrivateTutoringTier].bg} ${
+                    tierColours[item.publicPrivateTutoringTier].text
+                  }`
+                "
+                >{{ item.publicPrivateTutoringTier }}</a
+              >
               <span class="atar text-sm font-medium">{{ item.atar }} ATAR</span>
             </p>
             <p class="text-base text-gray-400 font-normal">
@@ -484,6 +492,20 @@ export default {
         "Pricing",
         "Gender",
       ],
+      tierColours: {
+        "Gold ($60/h)": {
+          bg: "bg-yellow-200",
+          text: "text-black",
+        },
+        "Platinum ($90/h)": {
+          bg: "bg-gray-300",
+          text: "text-black",
+        },
+        "Executive ($150/h)": {
+          bg: "bg-black",
+          text: "text-white",
+        },
+      },
     };
   },
   methods: {
