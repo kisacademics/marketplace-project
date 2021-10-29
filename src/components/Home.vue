@@ -374,38 +374,36 @@
           </div>
         </a>
       </div>
-      <div class="pagination w-full flex justify-center items-center mt-12">
-        <span
-          ><button
-            :disabled="tutorData && !tutorData.hasPreviousPage"
-            @click="previous()"
-          >
-            <a><img class="w-5" src="../assets/img/arrow.svg" /></a></button
-        ></span>
-        <button
-          type="submit"
+      <div class="w-full mt-12">
+        <div
           class="
-            inline-flex
-            w-auto
-            py-1
+            py-2
             px-12
-            mx-8
+            w-max
+            mx-auto
             rounded-3xl
             text-white
             bg-gray-400
+            relative
           "
         >
-          Page {{ pageno }}
-        </button>
-        <span
-          ><button
-            :disabled="tutorData && !tutorData.hasNextPage"
-            @click="next()"
+          <button
+            v-if="tutorData && tutorData.hasPreviousPage"
+            @click="previous()"
+            class="absolute -left-10"
+            style="top: 50%; transform: translateY(-50%)"
           >
-            <a
-              ><img class="flip w-5" src="../assets/img/arrow.svg"
-            /></a></button
-        ></span>
+            <img class="w-5" src="../assets/img/arrow.svg" /></button
+          ><span>Page {{ pageno }}</span
+          ><button
+            v-if="tutorData && tutorData.hasNextPage"
+            @click="next()"
+            class="absolute -right-10"
+            style="top: 50%; transform: translateY(-50%)"
+          >
+            <img class="w-5 rotate180" src="../assets/img/arrow.svg" />
+          </button>
+        </div>
       </div>
     </section>
 
@@ -486,7 +484,7 @@ export default {
       ],
       pricingTiers: ["Gold ($60/h)", "Platinum ($90/h)", "Executive ($150/h)"],
       filterNames: [
-        "Uni Study Area",
+        "Tutor Area of Study",
         "Location",
         "Availability",
         "Pricing",
@@ -606,6 +604,13 @@ export default {
         this.showPostcodeError = true;
         return;
       }
+      this.pageno = 1;
+      this.tutorData.after = "";
+      this.tutorData.before = "";
+      this.paging = {
+        last: 18,
+        before: "",
+      };
       await this.getTutorData({ paging: this.paging, filter: this.filterData });
     },
     validPostcode() {
