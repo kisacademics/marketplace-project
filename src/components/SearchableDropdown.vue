@@ -172,6 +172,8 @@ export default {
     },
     svgOpen() {
       this.$refs["input"].focus();
+      this.searchValue = "";
+      this.dropdownOpen = true;
     },
     toggleDropdown() {
       this.searchValue = "";
