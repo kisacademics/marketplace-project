@@ -13,7 +13,7 @@
         flex-col
       "
     >
-      <Dropdown
+      <SearchableDropdown
         label="Subject"
         :options="
           subjectData ? subjectData.map((subject) => subject.subject) : []
@@ -56,30 +56,50 @@
     </div>
     <div
       class="
-        mt-5
+        mt-3
         text-left
         md:max-w-6xl md:w-3/4
         w-11/12
         mx-auto
-        flex
+        flex flex-wrap
         items-center
-        space-x-2
-        mb-5
       "
+      :class="dropdownOpen ? 'mb-2' : 'mb-5'"
     >
-      <button
-        class="border border-gray-300 rounded-full p-2 shadow-sm"
-        @click="dropdownOpen = !dropdownOpen"
-      >
-        <img
-          class="w-2 sm:w-3"
-          :class="dropdownOpen ? 'rotate90' : 'rotate270'"
-          src="../assets/img/arrow.svg"
-        />
-      </button>
-      <span class="text-sm sm:text-base">{{
-        dropdownOpen ? "Less Filters" : "More Filters"
-      }}</span>
+      <div class="mr-5 h-12 flex items-center">
+        <button
+          class="border border-gray-300 rounded-full p-1 shadow-sm"
+          @click="dropdownOpen = !dropdownOpen"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            :class="dropdownOpen ? 'rotate180' : ''"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="#9ca3af"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+        <span class="text-sm sm:text-base ml-2">{{
+          dropdownOpen ? "Less Filters" : "More Filters"
+        }}</span>
+      </div>
+      <template v-if="!dropdownOpen">
+        <p
+          class="bg-gray-300 rounded-3xl px-3 text-sm py-1 mr-5 my-2"
+          v-for="filterName of filterNames"
+          :key="filterName"
+        >
+          {{ filterName }}
+        </p>
+      </template>
     </div>
     <div v-if="dropdownOpen" class="mb-5 md:max-w-6xl md:w-3/4 w-11/12 mx-auto">
       <div
@@ -93,7 +113,7 @@
           flex-col
         "
       >
-        <Dropdown
+        <SearchableDropdown
           label="Tutor's Area of Study"
           :options="areasOfStudy"
           initial="All areas of study"
@@ -143,7 +163,15 @@
         />
         <div class="flex space-x-5 lg:w-1/2 w-full mt-5 lg:mt-0">
           <div class="flex flex-col w-1/2">
-            <label class="text-left text-sm sm:text-base">Postcode</label>
+            <label
+              class="
+                block
+                font-medium
+                text-gray-700 text-left text-sm
+                sm:text-base
+              "
+              >Postcode</label
+            >
             <input
               type="number"
               class="
@@ -179,7 +207,15 @@
           </div>
 
           <div class="flex flex-col w-1/2">
-            <label class="text-left text-sm sm:text-base">Distance</label>
+            <label
+              class="
+                block
+                font-medium
+                text-gray-700 text-left text-sm
+                sm:text-base
+              "
+              >Distance</label
+            >
             <input
               class="w-full py-2 cursor-pointer"
               type="range"
@@ -365,9 +401,7 @@
       </div>
     </section>
 
-    <section
-      class="cant-choose px-4 sm:px-6 lg:px-8 xl:px-4 py-12 bg-indigo-600"
-    >
+    <section class="cant-choose px-4 sm:px-6 lg:px-8 xl:px-4 py-12 bg-default">
       <div class="max-w-6xl flex mx-auto">
         <div class="choosee w-full text-center text-white">
           <h2 class="text-4xl font-bold capitalize">can't choose?</h2>
@@ -382,12 +416,13 @@
               justify-center
               w-auto
               text-2xl
-              py-3
-              px-8
+              py-2
+              px-12
               rounded-md
               text-white
               bg-accent
               focus:outline-none
+              font-semibold
             "
           >
             Find me a Tutor
@@ -402,10 +437,12 @@
 import { mapActions, mapGetters } from "vuex";
 
 import Dropdown from "./Dropdown.vue";
+import SearchableDropdown from "./SearchableDropdown.vue";
 
 export default {
   components: {
     Dropdown,
+    SearchableDropdown,
   },
   // Called before mounted
   // Earliest lifecycle hook for data fetching
@@ -440,6 +477,13 @@ export default {
         "Music",
       ],
       pricingTiers: ["Gold ($60/h)", "Platinum ($90/h)", "Executive ($150/h)"],
+      filterNames: [
+        "Uni Study Area",
+        "Location",
+        "Availability",
+        "Pricing",
+        "Gender",
+      ],
     };
   },
   methods: {
@@ -562,12 +606,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.rotate90 {
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+.rotate180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .rotate270 {
