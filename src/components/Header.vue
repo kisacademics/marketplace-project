@@ -138,11 +138,11 @@
           md:flex-row
           justify-center
           mx-auto
-          w-64
           md:w-full
           xl:text-base
           text-sm
           space-y-5
+          w-max
         "
       >
         <div
