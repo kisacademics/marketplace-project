@@ -2,7 +2,7 @@
   <main class="mx-auto max-w-full main-content">
     <div
       class="
-        md:max-w-5xl md:w-3/4
+        md:max-w-4xl md:w-3/4
         w-11/12
         mx-auto
         flex
@@ -58,7 +58,7 @@
       class="
         mt-3
         text-left
-        md:max-w-5xl md:w-3/4
+        md:max-w-4xl md:w-3/4
         w-11/12
         mx-auto
         flex flex-wrap
@@ -101,7 +101,7 @@
         </p>
       </template>
     </div>
-    <div v-if="dropdownOpen" class="mb-5 md:max-w-5xl md:w-3/4 w-11/12 mx-auto">
+    <div v-if="dropdownOpen" class="mb-5 md:max-w-4xl md:w-3/4 w-11/12 mx-auto">
       <div
         class="
           w-full
@@ -311,12 +311,12 @@
       <div
         class="
           grid grid-cols-1
-          md:max-w-5xl md:w-3/4
+          md:max-w-4xl md:w-3/4
           w-11/12
           mx-auto
           sm:grid-cols-2
-          md:grid-cols-2
-          lg:grid-cols-3
+          lg:grid-cols-2
+          xl:grid-cols-3
           gap-5
         "
       >
@@ -324,13 +324,17 @@
           class="
             w-full
             max-w-md
+            min-w-min
             mx-auto
             bg-white
             rounded-lg
-            p-12
+            p-8
             flex flex-col
             justify-center
             items-center
+            transition
+            duration-200
+            hover:shadow-lg
             shadow-sm
           "
           v-for="item in tutorData && tutorData.results"
@@ -347,9 +351,19 @@
           </div>
           <div class="text-center w-full">
             <p class="text-xl text-gray-700 font-bold">{{ item.name }}</p>
-            <p class="flex justify-between w-full my-5 items-center">
+            <p
+              class="
+                flex
+                justify-between
+                w-full
+                my-5
+                items-center
+                max-w-xs
+                mx-auto
+              "
+            >
               <span
-                class="rounded-3xl px-3 text-sm py-1"
+                class="rounded-3xl px-3 text-sm py-1 mr-8 whitespace-nowrap"
                 :class="
                   tierColours[item.publicPrivateTutoringTier] &&
                   `${tierColours[item.publicPrivateTutoringTier].text}`
@@ -412,9 +426,9 @@
     </section>
 
     <section class="cant-choose px-4 sm:px-6 lg:px-8 xl:px-4 py-12 bg-default">
-      <div class="max-w-5xl flex mx-auto">
+      <div class="max-w-4xl flex mx-auto">
         <div class="choosee w-full text-center text-white">
-          <h2 class="text-5xl font-bold capitalize">can't choose?</h2>
+          <h2 class="text-4xl font-bold capitalize">can't choose?</h2>
           <p class="max-w-xl text-lg my-5 mx-auto">
             Let us help you out. Answer a few questions and the KIS Team will
             recommend the perfect tutor for you
@@ -634,7 +648,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="postcss">
 .rotate180 {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
@@ -650,4 +664,12 @@ export default {
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
+/* 
+.tutor-card {
+  transition: 0.1s;
+}
+
+.tutor-card:hover {
+  transform: scale(1.003);
+} */
 </style>
