@@ -30,7 +30,7 @@
           text-sm
           sm:text-base
         "
-        :value="searchValue"
+        :value="searchValue || initial"
         @input="setInput"
         @click="toggleDropdown"
         @blur="testBlur"
@@ -97,7 +97,9 @@
           option
         }}</span>
         <span
-          v-if="option === selectedOption"
+          v-if="
+            selectedOption === option || (!selectedOption && option === initial)
+          "
           class="text-blue-800 flex items-center group-hover:text-white"
         >
           <!-- Heroicon name: solid/check -->
@@ -182,6 +184,7 @@ export default {
     filteredOptions() {
       return [this.initial, ...this.options].filter((option) => {
         const lower = option.toLowerCase();
+        if (!this.searchValue) return true;
         const input = this.searchValue.toLowerCase();
         if (input === "") return true;
         return lower.includes(input);

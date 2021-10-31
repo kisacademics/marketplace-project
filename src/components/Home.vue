@@ -481,13 +481,19 @@ export default {
   async created() {
     const params = new URLSearchParams(window.location.search);
 
-    const subject = params.get("subject") || "";
-    this.filterData.subjects.includes = subject;
+    const subject = params.get("subject");
+
+    if (subject) {
+      this.filterData.subjects.includes = subject;
+    }
 
     const state = params.get("state");
     if (state) {
       this.filterData.state.equals = state;
     }
+
+    history.pushState({}, null, "/");
+
     await this.getSubjectData();
     await this.getTutorData({
       paging: { first: 18, after: "" },
@@ -662,9 +668,13 @@ export default {
     },
     selectedSubject() {
       if (!this.subjectData) return "";
-      return this.subjectData.find((subject) => {
+      const subject = this.subjectData.find((subject) => {
         return subject.id === this.filterData.subjects.includes;
-      }).subject;
+      });
+      // `subject` property is the name of the subject
+      // E.g. Physics 11 - 12
+      if (subject) return subject.subject;
+      return "";
     },
   },
 };
