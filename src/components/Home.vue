@@ -173,6 +173,7 @@
               >Postcode</label
             >
             <input
+              placeholder="Online"
               type="number"
               class="
                 max-h-60
@@ -217,6 +218,7 @@
               >Distance</label
             >
             <input
+              :disabled="filterData.location.within.of === '' || !validPostcode"
               class="w-full py-2 cursor-pointer"
               type="range"
               x-model="total_value"
@@ -582,7 +584,7 @@ export default {
                 of: value,
               });
           this.updateFilter(this.filterData);
-          this.showPostcodeError = !this.validPostcode();
+          this.showPostcodeError = !this.validPostcode;
           break;
         case "publicPrivateTutoringTier":
           value === ""
@@ -600,7 +602,7 @@ export default {
       }
     },
     submitFilter: async function () {
-      if (!this.validPostcode()) {
+      if (!this.validPostcode) {
         this.showPostcodeError = true;
         return;
       }
@@ -613,12 +615,6 @@ export default {
       };
       await this.getTutorData({ paging: this.paging, filter: this.filterData });
     },
-    validPostcode() {
-      const postcode = this.filterData.location.within.of;
-      console.log("validating", postcode, postcode.length);
-
-      return postcode.length === 4 || postcode.length === 0;
-    },
   },
   computed: {
     ...mapGetters({
@@ -627,6 +623,10 @@ export default {
       loading: "StateTutorDataLoading",
       filterData: "StateTutorFilterData",
     }),
+    validPostcode() {
+      const postcode = this.filterData.location.within.of;
+      return postcode.length === 4 || postcode.length === 0;
+    },
   },
 };
 </script>
