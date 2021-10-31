@@ -219,7 +219,12 @@
             >
             <input
               :disabled="filterData.location.within.of === '' || !validPostcode"
-              class="w-full py-2 cursor-pointer"
+              class="w-full py-2"
+              :class="
+                filterData.location.within.of === '' || !validPostcode
+                  ? 'cursor-not-allowed'
+                  : 'cursor-pointer'
+              "
               type="range"
               x-model="total_value"
               min="5"
