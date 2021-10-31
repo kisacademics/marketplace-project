@@ -92,13 +92,14 @@
         }}</span>
       </div>
       <template v-if="!dropdownOpen">
-        <p
+        <button
+          @click="dropdownOpen = true"
           class="bg-gray-300 rounded-3xl px-3 text-sm py-1 mr-5 my-2"
           v-for="filterName of filterNames"
           :key="filterName"
         >
           {{ filterName }}
-        </p>
+        </button>
       </template>
     </div>
     <div v-if="dropdownOpen" class="mb-5 md:max-w-4xl md:w-3/4 w-11/12 mx-auto">
