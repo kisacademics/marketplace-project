@@ -371,7 +371,7 @@
               "
             >
               <span
-                class="rounded-3xl px-3 text-sm py-1 mr-8 whitespace-nowrap"
+                class="rounded-3xl px-3 text-sm py-1 whitespace-nowrap"
                 :class="
                   tierColours[item.publicPrivateTutoringTier] &&
                   `${tierColours[item.publicPrivateTutoringTier].text}`
@@ -384,7 +384,9 @@
                 "
                 >{{ item.publicPrivateTutoringTier }}</span
               >
-              <span class="atar text-sm font-medium">{{ item.atar }} ATAR</span>
+              <span class="atar text-sm font-medium whitespace-nowrap"
+                >{{ item.atar }} ATAR</span
+              >
             </p>
             <p class="text-base text-gray-400 font-normal">
               <span
