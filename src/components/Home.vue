@@ -494,8 +494,6 @@ export default {
       this.filterData.state.equals = state;
     }
 
-    history.pushState({}, null, "/");
-
     await this.getSubjectData();
     await this.getTutorData({
       paging: { first: 18, after: "" },
