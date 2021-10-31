@@ -30,7 +30,7 @@
           text-sm
           sm:text-base
         "
-        :value="searchValue || initial"
+        :value="searchValue || dropdownOpen ? searchValue : initial"
         @input="setInput"
         @click="toggleDropdown"
         @blur="testBlur"
