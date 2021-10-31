@@ -365,11 +365,11 @@
             <p class="text-base text-gray-400 font-normal">
               <span
                 class="rounded-3xl px-3 available text-black text-sm py-1"
-                :class="
+                :style="`background: ${
                   item.availabilityForPrivateTutoring === 'Available'
-                    ? 'bg-green-300'
-                    : 'bg-yellow-500'
-                "
+                    ? '#ade1b7'
+                    : '#d88e8a'
+                }`"
                 >{{ item.availabilityForPrivateTutoring }}</span
               >
             </p>
