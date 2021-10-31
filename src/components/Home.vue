@@ -371,7 +371,16 @@
               "
             >
               <span
-                class="rounded-3xl px-3 text-sm py-1 whitespace-nowrap"
+                class="
+                  rounded-3xl
+                  px-3
+                  text-sm
+                  py-1
+                  whitespace-nowrap
+                  h-7
+                  flex
+                  items-center
+                "
                 :class="
                   tierColours[item.publicPrivateTutoringTier] &&
                   `${tierColours[item.publicPrivateTutoringTier].text}`
@@ -384,11 +393,29 @@
                 "
                 >{{ item.publicPrivateTutoringTier }}</span
               >
-              <span class="atar text-sm font-medium whitespace-nowrap"
+              <span
+                class="
+                  atar
+                  text-sm
+                  font-medium
+                  whitespace-nowrap
+                  h-7
+                  flex
+                  items-center
+                "
                 >{{ item.atar }} ATAR</span
               >
             </p>
-            <p class="text-base text-gray-400 font-normal">
+            <p
+              class="
+                text-base text-gray-400
+                font-normal
+                h-7
+                flex
+                items-center
+                justify-center
+              "
+            >
               <span
                 class="rounded-3xl px-3 text-black text-sm py-1"
                 :style="`background: ${
