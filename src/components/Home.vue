@@ -2,7 +2,7 @@
   <main class="mx-auto max-w-full main-content">
     <div
       class="
-        md:max-w-6xl md:w-3/4
+        md:max-w-5xl md:w-3/4
         w-11/12
         mx-auto
         flex
@@ -58,7 +58,7 @@
       class="
         mt-3
         text-left
-        md:max-w-6xl md:w-3/4
+        md:max-w-5xl md:w-3/4
         w-11/12
         mx-auto
         flex flex-wrap
@@ -101,7 +101,7 @@
         </p>
       </template>
     </div>
-    <div v-if="dropdownOpen" class="mb-5 md:max-w-6xl md:w-3/4 w-11/12 mx-auto">
+    <div v-if="dropdownOpen" class="mb-5 md:max-w-5xl md:w-3/4 w-11/12 mx-auto">
       <div
         class="
           w-full
@@ -307,19 +307,17 @@
     >
       <img src="../assets/img/loading1.gif" />
     </section>
-    <section
-      v-show="!loading"
-      class="tutor-sec px-4 sm:px-6 lg:px-8 xl:px-4 py-12 bg-gray-100"
-    >
+    <section v-show="!loading" class="tutor-sec py-5 bg-gray-100">
       <div
         class="
           grid grid-cols-1
-          max-w-6xl
+          md:max-w-5xl md:w-3/4
+          w-11/12
           mx-auto
           sm:grid-cols-2
           md:grid-cols-2
           lg:grid-cols-3
-          gap-12
+          gap-5
         "
       >
         <a
@@ -333,6 +331,7 @@
             flex flex-col
             justify-center
             items-center
+            shadow-sm
           "
           v-for="item in tutorData && tutorData.results"
           :key="item"
@@ -379,7 +378,7 @@
           </div>
         </a>
       </div>
-      <div class="w-full mt-12">
+      <div class="w-full mt-12 mb-8">
         <div
           class="
             py-2
@@ -413,9 +412,9 @@
     </section>
 
     <section class="cant-choose px-4 sm:px-6 lg:px-8 xl:px-4 py-12 bg-default">
-      <div class="max-w-6xl flex mx-auto">
+      <div class="max-w-5xl flex mx-auto">
         <div class="choosee w-full text-center text-white">
-          <h2 class="text-4xl font-bold capitalize">can't choose?</h2>
+          <h2 class="text-5xl font-bold capitalize">can't choose?</h2>
           <p class="max-w-xl text-lg my-5 mx-auto">
             Let us help you out. Answer a few questions and the KIS Team will
             recommend the perfect tutor for you

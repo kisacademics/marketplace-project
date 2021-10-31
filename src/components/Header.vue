@@ -12,7 +12,7 @@
       xl:px-4
     "
   >
-    <div class="relative max-w-6xl mx-auto">
+    <div class="relative max-w-5xl mx-auto">
       <nav
         class="relative flex items-center justify-between lg:justify-start"
         aria-label="Global"
@@ -45,7 +45,7 @@
       bg-default
     "
   >
-    <div class="max-w-6xl items-center flex sm:flex-row flex-col mx-auto">
+    <div class="max-w-5xl items-center flex sm:flex-row flex-col mx-auto">
       <div class="sm:w-1/2 w-full sm:text-left text-center">
         <p
           class="text-base text-white sm:mt-5 sm:text-lg sm:max-w-xl uppercase"
@@ -93,7 +93,7 @@
     </div>
   </section> -->
   <section class="bg-default">
-    <div class="max-w-6xl w-3/4 mx-auto py-10 pb-12">
+    <div class="max-w-5xl w-3/4 mx-auto py-10 pb-12">
       <!-- section with logo and title -->
       <div
         class="
