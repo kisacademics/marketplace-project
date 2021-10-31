@@ -126,6 +126,11 @@
         />
         <div class="flex space-x-5 lg:w-1/2 w-full mt-5 lg:mt-0">
           <Dropdown
+            :selectedOption="
+              filterData.publicPrivateTutoringTier
+                ? filterData.publicPrivateTutoringTier.equals
+                : ''
+            "
             label="Pricing Tier"
             :options="pricingTiers"
             initial="All Pricing Tiers"
@@ -135,6 +140,7 @@
           />
 
           <Dropdown
+            :selectedOption="filterData.gender ? filterData.gender.equals : ''"
             label="Gender"
             :options="['Male', 'Female']"
             initial="Everyone"
@@ -157,6 +163,11 @@
         "
       >
         <Dropdown
+          :selectedOption="
+            filterData.availabilityForPrivateTutoring
+              ? filterData.availabilityForPrivateTutoring.equals
+              : ''
+          "
           label="Availability"
           :options="['Available', 'Not Available']"
           initial="All Availabilities"
