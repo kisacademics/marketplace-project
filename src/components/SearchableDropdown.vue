@@ -123,7 +123,7 @@
 <script>
 export default {
   name: "Dropdown",
-  props: ["label", "options", "initial", "width", "emitType"],
+  props: ["label", "options", "initial", "width", "emitType", "selectedOption"],
   mounted() {
     this.$refs["dropdown"].addEventListener("mouseenter", () => {
       this.mouseOverOptions = true;
@@ -135,14 +135,12 @@ export default {
       if (!this.$refs["input"]) return;
       this.inputWidth = this.$refs["input"].offsetWidth;
     });
-    this.selectedOption = this.initial;
-    this.searchValue = this.initial;
+    this.searchValue = this.selectedOption;
     this.inputWidth = this.$refs["input"].offsetWidth;
   },
   data() {
     return {
       dropdownOpen: false,
-      selectedOption: null,
       mouseOverOptions: false,
       inputWidth: null,
       searchValue: "",
@@ -157,7 +155,6 @@ export default {
       if (state === false) this.$refs["input"].blur();
     },
     selectOption(option) {
-      this.selectedOption = option;
       this.searchValue = option;
       this.setDropdownState(false);
       // If option changed to is initial, set to empty string
@@ -189,6 +186,11 @@ export default {
         if (input === "") return true;
         return lower.includes(input);
       });
+    },
+  },
+  watch: {
+    selectedOption() {
+      this.searchValue = this.selectedOption;
     },
   },
 };

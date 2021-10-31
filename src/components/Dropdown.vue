@@ -94,7 +94,9 @@
           option
         }}</span>
         <span
-          v-if="option === selectedOption"
+          v-if="
+            selectedOption === option || (!selectedOption && option === initial)
+          "
           class="text-blue-800 flex items-center group-hover:text-white"
         >
           <!-- Heroicon name: solid/check -->
@@ -120,7 +122,7 @@
 <script>
 export default {
   name: "Dropdown",
-  props: ["label", "options", "initial", "width", "emitType"],
+  props: ["label", "options", "initial", "width", "emitType", "selectedOption"],
   mounted() {
     this.$refs["dropdown"].addEventListener("mouseenter", () => {
       this.mouseOverOptions = true;
@@ -132,13 +134,11 @@ export default {
       if (!this.$refs["button"]) return;
       this.buttonWidth = this.$refs["button"].offsetWidth;
     });
-    this.selectedOption = this.initial;
     this.buttonWidth = this.$refs["button"].offsetWidth;
   },
   data() {
     return {
       dropdownOpen: false,
-      selectedOption: null,
       mouseOverOptions: false,
       buttonWidth: null,
     };
@@ -149,7 +149,6 @@ export default {
       if (state === false) this.$refs["button"].blur();
     },
     selectOption(option) {
-      this.selectedOption = option;
       this.setDropdownState(false);
       // If option changed to is initial, set to empty string
       const emitOption = option === this.initial ? "" : option;

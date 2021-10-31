@@ -14,6 +14,7 @@
       "
     >
       <SearchableDropdown
+        :selectedOption="selectedSubject"
         label="Subject"
         :options="
           subjectData ? subjectData.map((subject) => subject.subject) : []
@@ -25,6 +26,7 @@
       />
       <div class="flex space-x-5 lg:w-1/2 w-full mt-5 lg:mt-0 justify-between">
         <Dropdown
+          :selectedOption="filterData.state.equals"
           label="State"
           :options="stateData"
           initial="All States"
@@ -477,6 +479,15 @@ export default {
   // Called before mounted
   // Earliest lifecycle hook for data fetching
   async created() {
+    const params = new URLSearchParams(window.location.search);
+
+    const subject = params.get("subject") || "";
+    this.filterData.subjects.includes = subject;
+
+    const state = params.get("state");
+    if (state) {
+      this.filterData.state.equals = state;
+    }
     await this.getSubjectData();
     await this.getTutorData({
       paging: { first: 18, after: "" },
@@ -648,6 +659,12 @@ export default {
     validPostcode() {
       const postcode = this.filterData.location.within.of;
       return postcode.length === 4 || postcode.length === 0;
+    },
+    selectedSubject() {
+      if (!this.subjectData) return "";
+      return this.subjectData.find((subject) => {
+        return subject.id === this.filterData.subjects.includes;
+      }).subject;
     },
   },
 };
