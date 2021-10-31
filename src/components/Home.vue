@@ -349,22 +349,25 @@
           <div class="text-center w-full">
             <p class="text-xl text-gray-700 font-bold">{{ item.name }}</p>
             <p class="flex justify-between w-full my-5 items-center">
-              <a
+              <span
                 class="rounded-3xl px-3 text-sm py-1"
-                href=""
                 :class="
                   tierColours[item.publicPrivateTutoringTier] &&
-                  `${tierColours[item.publicPrivateTutoringTier].bg} ${
-                    tierColours[item.publicPrivateTutoringTier].text
+                  `${tierColours[item.publicPrivateTutoringTier].text}`
+                "
+                :style="
+                  tierColours[item.publicPrivateTutoringTier] &&
+                  `background: ${
+                    tierColours[item.publicPrivateTutoringTier].bg
                   }`
                 "
-                >{{ item.publicPrivateTutoringTier }}</a
+                >{{ item.publicPrivateTutoringTier }}</span
               >
               <span class="atar text-sm font-medium">{{ item.atar }} ATAR</span>
             </p>
             <p class="text-base text-gray-400 font-normal">
               <span
-                class="rounded-3xl px-3 available text-black text-sm py-1"
+                class="rounded-3xl px-3 text-black text-sm py-1"
                 :style="`background: ${
                   item.availabilityForPrivateTutoring === 'Available'
                     ? '#ade1b7'
@@ -494,15 +497,15 @@ export default {
       ],
       tierColours: {
         "Gold ($60/h)": {
-          bg: "bg-yellow-200",
+          bg: "#f2e8a1",
           text: "text-black",
         },
         "Platinum ($90/h)": {
-          bg: "bg-gray-300",
+          bg: "#bebebe",
           text: "text-black",
         },
         "Executive ($150/h)": {
-          bg: "bg-black",
+          bg: "black",
           text: "text-white",
         },
       },
