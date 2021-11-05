@@ -328,6 +328,13 @@
     </section>
     <section v-show="!loading" class="tutor-sec py-5 bg-gray-100">
       <div
+        v-if="tutorData && tutorData.results.length === 0"
+        class="text-center mx-auto max-w-lg w-3/4 text-gray-800"
+      >
+        Well you’re picky, aren’t you! We couldn’t find any tutors that matched
+        your criteria. Remove some filters or get in touch with us directly!
+      </div>
+      <div
         class="
           grid grid-cols-1
           md:max-w-4xl md:w-3/4
